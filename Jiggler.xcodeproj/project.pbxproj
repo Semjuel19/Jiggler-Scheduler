@@ -14,6 +14,7 @@
 		987BCA24247F5CAE0069B2FC /* JigglerOverlayWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 987BCA1F247F5CAE0069B2FC /* JigglerOverlayWindow.m */; };
 		987BCA25247F5CAE0069B2FC /* TimedQuitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 987BCA21247F5CAE0069B2FC /* TimedQuitController.m */; };
 		987BCA26247F5CAE0069B2FC /* PrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 987BCA23247F5CAE0069B2FC /* PrefsController.m */; };
+		5C4ED01E00000000000000A1 /* ScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C4ED01E00000000000000A3 /* ScheduleController.m */; };
 		987BCA31247F5CD30069B2FC /* CocoaExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 987BCA27247F5CD20069B2FC /* CocoaExtra.m */; };
 		987BCA32247F5CD30069B2FC /* SSCPU.m in Sources */ = {isa = PBXBuildFile; fileRef = 987BCA29247F5CD20069B2FC /* SSCPU.m */; };
 		987BCA33247F5CD30069B2FC /* SSProgressPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 987BCA2B247F5CD20069B2FC /* SSProgressPanel.m */; };
@@ -48,6 +49,8 @@
 		987BCA21247F5CAE0069B2FC /* TimedQuitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimedQuitController.m; sourceTree = "<group>"; };
 		987BCA22247F5CAE0069B2FC /* TimedQuitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimedQuitController.h; sourceTree = "<group>"; };
 		987BCA23247F5CAE0069B2FC /* PrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsController.m; sourceTree = "<group>"; };
+		5C4ED01E00000000000000A2 /* ScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleController.h; sourceTree = "<group>"; };
+		5C4ED01E00000000000000A3 /* ScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleController.m; sourceTree = "<group>"; };
 		987BCA27247F5CD20069B2FC /* CocoaExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CocoaExtra.m; sourceTree = "<group>"; };
 		987BCA28247F5CD20069B2FC /* SSPanels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPanels.h; sourceTree = "<group>"; };
 		987BCA29247F5CD20069B2FC /* SSCPU.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCPU.m; sourceTree = "<group>"; };
@@ -113,6 +116,8 @@
 				987BCA1F247F5CAE0069B2FC /* JigglerOverlayWindow.m */,
 				987BCA1E247F5CAE0069B2FC /* PrefsController.h */,
 				987BCA23247F5CAE0069B2FC /* PrefsController.m */,
+				5C4ED01E00000000000000A2 /* ScheduleController.h */,
+				5C4ED01E00000000000000A3 /* ScheduleController.m */,
 				987BCA22247F5CAE0069B2FC /* TimedQuitController.h */,
 				987BCA21247F5CAE0069B2FC /* TimedQuitController.m */,
 			);
@@ -254,6 +259,7 @@
 				987BCA31247F5CD30069B2FC /* CocoaExtra.m in Sources */,
 				987BCA32247F5CD30069B2FC /* SSCPU.m in Sources */,
 				987BCA26247F5CAE0069B2FC /* PrefsController.m in Sources */,
+				5C4ED01E00000000000000A1 /* ScheduleController.m in Sources */,
 				987BCA25247F5CAE0069B2FC /* TimedQuitController.m in Sources */,
 				987BCA34247F5CD30069B2FC /* SSPanels.m in Sources */,
 				987BCA03247F5AD80069B2FC /* AppDelegate.m in Sources */,
@@ -452,7 +458,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stick.app.jiggler;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.semjuel19.jigglerscheduler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -475,7 +481,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stick.app.jiggler;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.semjuel19.jigglerscheduler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

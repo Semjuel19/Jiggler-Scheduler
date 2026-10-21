@@ -4,6 +4,7 @@
 //
 //  Created by Ben Haller on Sat Aug 02 2003.
 //  Copyright (c) 2003 Stick Software. All rights reserved.
+//  Modified October 2026 by Semjuel19 for the Jiggler Scheduler fork: weekly schedule, fork links, permission prompt.
 //
 
 #import "AppDelegate.h"
@@ -14,6 +15,7 @@
 #import "JigglerOverlayWindow.h"
 #import "TimedQuitController.h"
 #import "SSCPU.h"
+#import "ScheduleController.h"
 
 #import <ApplicationServices/ApplicationServices.h>
 #include <IOKit/pwr_mgt/IOPMLib.h>
@@ -110,6 +112,30 @@ extern OSErr UpdateSystemActivity(UInt8 activity) __attribute__((weak_import));
 	
 	[statusItem setMenu:[self statusItemMenu]];
 	[self setStatusItem:statusItem];
+
+	// Add the Schedule item in code, right after Preferences..., so the nibs need no changes
+	NSMenu *menu = [self statusItemMenu];
+	NSInteger prefsIndex = [menu indexOfItemWithTarget:self andAction:@selector(showPreferences:)];
+	NSMenuItem *scheduleItem = [[[NSMenuItem alloc] initWithTitle:@"Schedule..." action:@selector(showSchedule:) keyEquivalent:@""] autorelease];
+
+	[scheduleItem setTarget:self];
+	[menu insertItem:scheduleItem atIndex:(prefsIndex >= 0 ? prefsIndex + 1 : 0)];
+
+	// Jiggler Scheduler is an unofficial fork: drop the update check (it would offer the official Jiggler), and send
+	// home page / support traffic to the fork's repo rather than to Stick Software
+	for (NSMenuItem *item in [[[menu itemArray] copy] autorelease])
+	{
+		SEL action = [item action];
+
+		if ((action == @selector(checkVersionNow:)) || (action == @selector(automaticVersionChecking:)))
+			[menu removeItem:item];
+		else if (action == @selector(showProductHomePage:))
+			[item setTitle:@"Jiggler Scheduler on GitHub"];
+		else if (action == @selector(showStickSoftwarePage:))
+			[item setTitle:@"Original Jiggler by Stick Software"];
+		else if (action == @selector(sendStickSoftwareEmail:))
+			[item setTitle:@"Report an Issue..."];
+	}
 	
 	// Prepare our status item icon variants
 	NSImage *jigglerImage = [NSImage imageNamed:NSImageNameApplicationIcon];
@@ -135,6 +161,11 @@ extern OSErr UpdateSystemActivity(UInt8 activity) __attribute__((weak_import));
 	{
 		NSDictionary *opts = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanFalse, (id)kAXTrustedCheckOptionPrompt, nil];
 		(void)AXIsProcessTrustedWithOptions((CFDictionaryRef)opts);
+
+		// Without this, posted mouse events are silently dropped and the user gets no hint why;
+		// the request shows the system prompt and adds Jiggler to the Accessibility list
+		if (!CGPreflightPostEventAccess())
+			CGRequestPostEventAccess();
 	}
 	else if (!AXIsProcessTrusted())
 	{
@@ -590,7 +621,8 @@ extern OSErr UpdateSystemActivity(UInt8 activity) __attribute__((weak_import));
 	// and return.  There are no cases under which jiggling occurs, or stays on when active, with these conditions.
 	if ((notOnBattery && RunningOnBatteryOnly()) ||
 		(notWithFrontAppsNamedX && [self checkRunningAppsForAppNameContaining:frontAppNameComponents mustBeDockApp:YES mustBeFront:YES]) ||
-		(notWhenScreenLocked && ScreenIsLocked()))
+		(notWhenScreenLocked && ScreenIsLocked()) ||
+		![[ScheduleController sharedScheduleController] scheduleAllowsJigglingNow])
 	{
 		[self setJigglingActive:NO];
 		return;
@@ -824,6 +856,7 @@ extern OSErr UpdateSystemActivity(UInt8 activity) __attribute__((weak_import));
 							  @"http://www.sticksoftware.com/", @"www.sticksoftware.com",
 							  @"http://www.gnu.org/licenses/", @"http://www.gnu.org/licenses/",
 							  @"https://github.com/bhaller/Jiggler", @"https://github.com/bhaller/Jiggler",
+							  @"https://github.com/Semjuel19/Jiggler-Scheduler", @"https://github.com/Semjuel19/Jiggler-Scheduler",
 							  nil];
 	
 	[NSWindow runStandardSSAboutPanelWithURLDictionary:linkDict hideOnDeactivate:NO];
@@ -839,27 +872,28 @@ extern OSErr UpdateSystemActivity(UInt8 activity) __attribute__((weak_import));
 
 - (IBAction)showProductHomePage:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.sticksoftware.com/software/Jiggler.html"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/Semjuel19/Jiggler-Scheduler"]];
 }
 
 - (IBAction)showStickSoftwarePage:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.sticksoftware.com/"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.sticksoftware.com/software/Jiggler.html"]];
 }
 
 - (IBAction)sendStickSoftwareEmail:(id)sender
 {
-	NSBundle *mainBundle = [NSBundle mainBundle];
-	NSDictionary *infoDictionary = [mainBundle infoDictionary];
-	NSString *appVersionString = [infoDictionary objectForKey:(NSString *)kCFBundleVersionKey];
-	NSString *bundleName = [infoDictionary objectForKey:(NSString *)kCFBundleNameKey];
-	
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:support@sticksoftware.com?subject=%@%%20%@", bundleName, appVersionString]]];
+	// Issues with this fork belong in the fork's tracker, not with Stick Software
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/Semjuel19/Jiggler-Scheduler/issues"]];
 }
 
 - (IBAction)showPreferences:(id)sender
 {
 	[[PrefsController sharedPrefsController] showWindow];
+}
+
+- (IBAction)showSchedule:(id)sender
+{
+	[[ScheduleController sharedScheduleController] showWindow];
 }
 
 - (IBAction)checkVersionNow:(id)sender

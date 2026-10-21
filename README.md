@@ -1,3 +1,46 @@
+Jiggler Scheduler
+=================
+
+**An unofficial fork of [Jiggler](https://github.com/bhaller/Jiggler) by Ben Haller / [Stick Software](http://www.sticksoftware.com/software/Jiggler.html), with a weekly scheduler added.**
+
+> ⚠️ **This is not the official Jiggler.** It is a modified version maintained by [Semjuel19](https://github.com/Semjuel19). Stick Software and Ben Haller did not make, review or endorse these changes and are **not responsible** for this fork. Please **report bugs and requests in [this repo's issues](https://github.com/Semjuel19/Jiggler-Scheduler/issues)**, not to the original project or to Stick Software.
+
+## Credits
+
+All of Jiggler itself is the work of **Ben Haller** and **Stick Software**, with contributions from Eric Hankinson; the icon is by Roberto Muñoz. Thank you for writing Jiggler and releasing it as free software. If you find it useful, please check out [Stick Software's other products](http://www.sticksoftware.com).
+
+## What this fork changes
+
+Modified October 2026 by Semjuel19:
+
+- **Schedule...** menu item: pick which days of the week Jiggler may jiggle and from what time to what time. With the schedule on, Jiggler starts and stops by itself based on the Mac's clock; with it off, Jiggler works exactly as before. A window that ends earlier than it starts (e.g. 22:00–02:00) runs past midnight.
+- Asks for the macOS permission it needs to move the mouse on launch (the original stays silent on macOS 15+, so jiggling could fail without any hint).
+- Its own name and app ID (`Jiggler Scheduler`, `io.github.semjuel19.jigglerscheduler`), so it can't be confused with the official app.
+- Home page / support menu items point to this repo; the update check (which would offer the official Jiggler) is removed.
+
+## Install
+
+Download the `.dmg` from [Releases](https://github.com/Semjuel19/Jiggler-Scheduler/releases), open it and drag **Jiggler Scheduler** to Applications. The app is not notarized by Apple, so the first time right-click it and choose **Open**. Then allow it under **System Settings → Privacy & Security → Accessibility** and reopen it.
+
+## Building
+
+With Xcode: open `Jiggler.xcodeproj` and build.
+
+Without Xcode (Command Line Tools only): `ibtool` is unavailable, so `build.sh` reuses the compiled interface files from an official Jiggler 1.10 app:
+
+```sh
+./build.sh /path/to/official/Jiggler.app   # -> build/Jiggler Scheduler.app
+./build.sh test                            # schedule logic self-check
+```
+
+## License
+
+Same as the original: **GNU General Public License v3** (see [LICENSE](LICENSE)). Copyright © Ben Haller / Stick Software; modifications © 2026 Semjuel19, under the same license.
+
+---
+
+# Original Jiggler README
+
 Jiggler
 ---------------------------------------------------------------------------------------------
 Home page: [http://www.sticksoftware.com/software/Jiggler.html](http://www.sticksoftware.com/software/Jiggler.html)

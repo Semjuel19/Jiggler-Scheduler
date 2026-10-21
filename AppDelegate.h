@@ -4,6 +4,7 @@
 //
 //  Created by Ben Haller on Sat Aug 02 2003.
 //  Copyright (c) 2003 Stick Software. All rights reserved.
+//  Modified October 2026 by Semjuel19 for the Jiggler Scheduler fork: weekly schedule, fork links, permission prompt.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -53,6 +54,7 @@
 - (IBAction)showStickSoftwarePage:(id)sender;
 - (IBAction)sendStickSoftwareEmail:(id)sender;
 - (IBAction)showPreferences:(id)sender;
+- (IBAction)showSchedule:(id)sender;
 - (IBAction)checkVersionNow:(id)sender;
 - (IBAction)automaticVersionChecking:(id)sender;
 
