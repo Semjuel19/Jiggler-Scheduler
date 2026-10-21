@@ -20,7 +20,28 @@ Modified October 2026 by Semjuel19:
 
 ## Install
 
-Download the `.dmg` from [Releases](https://github.com/Semjuel19/Jiggler-Scheduler/releases), open it and drag **Jiggler Scheduler** to Applications. The app is not notarized by Apple, so the first time right-click it and choose **Open**. Then allow it under **System Settings → Privacy & Security → Accessibility** and reopen it.
+> ⚠️ **Install at your own risk.**
+>
+> Jiggler Scheduler is **not signed or notarized by Apple**, so macOS cannot verify it and will warn you before opening it (see below). I do **not** encourage anyone to install it who is not willing to accept that risk. If you are unsure, don't install it.
+>
+> **By installing or using Jiggler Scheduler you agree that you do so entirely at your own risk and responsibility.** The software is provided "as is", without warranty of any kind (see sections 15 and 16 of the [GPL v3 license](LICENSE)). The author of this fork, and the authors of the original Jiggler, are **not responsible or liable for anything** that happens as a result of installing or using it, including any damage, data loss, security or privacy issues, or consequences of keeping your computer awake. You can always review the full source code in this repository and build it yourself instead.
+
+1. Download the `.dmg` from [Releases](https://github.com/Semjuel19/Jiggler-Scheduler/releases), open it and drag **Jiggler Scheduler** to **Applications**.
+2. Open the app. macOS will show:
+
+   > **"Jiggler Scheduler" Not Opened**
+   > Apple could not verify "Jiggler Scheduler" is free of malware that may harm your Mac or compromise your privacy.
+
+   This appears for any downloaded app that isn't notarized by Apple. Click **Done**.
+
+3. Open **System Settings → Privacy & Security**, scroll down to the **Security** section, and next to *"Jiggler Scheduler" was blocked…* click **Open Anyway**. Confirm with your password or Touch ID.
+4. Open the app again and click **Open** in the dialog. This is only needed the first time.
+
+   *Alternative (Terminal):* `xattr -dr com.apple.quarantine "/Applications/Jiggler Scheduler.app"` removes the "downloaded from the internet" flag that triggers the warning.
+
+   On recent macOS versions, right-clicking the app and choosing **Open** no longer bypasses this warning.
+
+5. Jiggler Scheduler needs permission to move the mouse. Allow it under **System Settings → Privacy & Security → Accessibility** (it will prompt you), then quit and reopen it.
 
 ## Building
 
